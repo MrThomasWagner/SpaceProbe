@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+     <bean id="gridGenerator" class="com.spaceprobe.grid.GridGeneratorImpl">
+		<constructor-arg name="asteroidIndicator" value="1" />   
+		<constructor-arg name="gravWellIndicator" value="2" /> 
+		<constructor-arg name="gravZoneIndicator" value="3" />		
+     </bean>
+     
+     <bean id="pathFinder" class="com.spaceprobe.path.AStar">   
+     	<constructor-arg name="emptySpaceIndicator" value="0" />	
+		<constructor-arg name="pathIndicator" value="4" />     	
+     </bean>
+
+</beans>
