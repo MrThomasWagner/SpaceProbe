@@ -1,8 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>Spring MVC Tutorial by Crunchify - Hello World Spring MVC
-	Example</title>
+<title>SpaceProbe</title>
 <style type="text/css">
 
 .row {

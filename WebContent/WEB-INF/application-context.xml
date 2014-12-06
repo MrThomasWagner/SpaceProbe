@@ -4,15 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-     <bean id="gridGenerator" class="com.spaceprobe.grid.GridGeneratorImpl">
-		<constructor-arg name="asteroidIndicator" value="1" />   
-		<constructor-arg name="gravWellIndicator" value="2" /> 
-		<constructor-arg name="gravZoneIndicator" value="3" />		
+     <bean id="gridFactory" class="com.spaceprobe.grid.GridFactory">
      </bean>
      
-     <bean id="pathFinder" class="com.spaceprobe.path.AStar">   
-     	<constructor-arg name="emptySpaceIndicator" value="0" />	
-		<constructor-arg name="pathIndicator" value="4" />     	
+     <bean id="pathFinder" class="com.spaceprobe.grid.path.AStar">   
      </bean>
 
 </beans>
