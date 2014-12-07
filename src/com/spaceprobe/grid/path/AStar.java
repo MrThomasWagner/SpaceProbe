@@ -2,6 +2,9 @@ package com.spaceprobe.grid.path;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import com.spaceprobe.grid.Grid;
@@ -12,6 +15,7 @@ public class AStar implements PathFinder{
 	public ArrayList<PathNode> getPath(Grid grid, int startX, int startY, int endX, int endY) {
 		PriorityQueue<PathNode> open = new PriorityQueue<PathNode>(50, new PathNodeComparator());
 		ArrayList<PathNode> closed = new ArrayList<PathNode>();
+		Map<List<Integer>, Double> bestValsSoFar = new HashMap<List<Integer>, Double>();
 		
 		open.add(new PathNode(startX, startY, null)); //starting node
 		PathNode goal = new PathNode(endX, endY, null);	
@@ -37,18 +41,11 @@ public class AStar implements PathFinder{
 				}				
 				successor.setFValue(nextNode.getFValue() + euclideanQuick(nextNode, successor) + euclideanQuick(successor, goal));
 				
-				//this pains me, need to extend PriorityQueue to get these down to O(1)
-				boolean skip = false;				
-				for(PathNode n : open)
-					if (n.hasSameCoordinates(successor) && n.getFValue()<successor.getFValue())
-						skip = true;
-				
-				for(PathNode n : closed)
-					if (n.hasSameCoordinates(successor) && n.getFValue()<successor.getFValue())
-						skip = true; 				
-				
-				if(!skip)
-					open.add(successor);				
+				List<Integer> xy = Arrays.asList(new Integer[]{successor.getX(), successor.getY()});
+				if (bestValsSoFar.get(xy) == null || bestValsSoFar.get(xy) > successor.getFValue()){
+					open.add(successor);
+					bestValsSoFar.put(Arrays.asList(new Integer[]{successor.getX(), successor.getY()}), successor.getFValue());
+				}
 				
 				closed.add(nextNode);
 				
