@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 import com.spaceprobe.grid.Grid;
 
 public class AStar implements PathFinder{
 
 	@Override
-	public ArrayList<PathNode> getPath(Grid grid, int startX, int startY, int endX, int endY) {
-		PriorityQueue<PathNode> open = new PriorityQueue<PathNode>(50, new PathNodeComparator());
-		ArrayList<PathNode> closed = new ArrayList<PathNode>();
+	public List<PathNode> getPath(Grid grid, int startX, int startY, int endX, int endY) {
+		Queue<PathNode> open = new PriorityQueue<PathNode>(50, new PathNodeComparator());
+		List<PathNode> closed = new ArrayList<PathNode>();
 		Map<List<Integer>, Double> bestValsSoFar = new HashMap<List<Integer>, Double>();
 		
 		open.add(new PathNode(startX, startY, null)); //starting node
@@ -32,7 +33,7 @@ public class AStar implements PathFinder{
 		while(open.size() > 0 && !found){
 			
 			PathNode nextNode = open.remove();
-			ArrayList<PathNode> successors = generateSuccessors(nextNode, grid);
+			List<PathNode> successors = generateSuccessors(nextNode, grid);
 			
 			for(PathNode successor : successors){
 				if(successor.hasSameCoordinates(goal)){
@@ -41,10 +42,10 @@ public class AStar implements PathFinder{
 				}				
 				successor.setFValue(nextNode.getFValue() + euclideanQuick(nextNode, successor) + euclideanQuick(successor, goal));
 				
-				List<Integer> xy = Arrays.asList(new Integer[]{successor.getX(), successor.getY()});
+				List<Integer> xy = Arrays.asList(successor.getX(), successor.getY());
 				if (bestValsSoFar.get(xy) == null || bestValsSoFar.get(xy) > successor.getFValue()){
 					open.add(successor);
-					bestValsSoFar.put(Arrays.asList(new Integer[]{successor.getX(), successor.getY()}), successor.getFValue());
+					bestValsSoFar.put(Arrays.asList(successor.getX(), successor.getY()), successor.getFValue());
 				}
 				
 				closed.add(nextNode);
@@ -61,8 +62,8 @@ public class AStar implements PathFinder{
 		return null;
 	}
 	
-	private ArrayList<PathNode> getPathCoordinates(PathNode endNode){
-		ArrayList<PathNode> result = new ArrayList<PathNode>();
+	private List<PathNode> getPathCoordinates(PathNode endNode){
+		List<PathNode> result = new ArrayList<PathNode>();
 		PathNode n = endNode;
 		while(n != null){
 			result.add(n);
@@ -71,11 +72,11 @@ public class AStar implements PathFinder{
 		return result;
 	}
 	
-	private ArrayList<PathNode> generateSuccessors(PathNode n, Grid grid){		
-		ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(n.getX()-1, n.getX(), n.getX()+1));
-		ArrayList<Integer> b = new ArrayList<Integer>( Arrays.asList(n.getY()-1, n.getY(), n.getY()+1));
+	private List<PathNode> generateSuccessors(PathNode n, Grid grid){		
+		List<Integer> a = Arrays.asList(n.getX()-1, n.getX(), n.getX()+1);
+		List<Integer> b = Arrays.asList(n.getY()-1, n.getY(), n.getY()+1);
 		
-		ArrayList<PathNode> result = new ArrayList<PathNode>();		
+		List<PathNode> result = new ArrayList<PathNode>();			
 		for(int x : a){	for(int y : b){	
 			
 			if(x == a.get(1) && y == b.get(1))

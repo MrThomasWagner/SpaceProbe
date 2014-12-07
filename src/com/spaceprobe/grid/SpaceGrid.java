@@ -1,7 +1,7 @@
 package com.spaceprobe.grid;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import com.spaceprobe.grid.path.PathNode;
@@ -32,14 +32,14 @@ public class SpaceGrid implements Grid{
 		   }else if(next >= asteroidPercent && next <= asteroidPercent + gravPercent){				   
 			   makeGravWell(x, y);				   
 			   colorAdjacents(
-					   new ArrayList<Integer>(Arrays.asList(x-1, x, x+1)), 
-					   new ArrayList<Integer>(Arrays.asList(y-1, y, y+1))					   
+					   Arrays.asList(x-1, x, x+1), 
+					   Arrays.asList(y-1, y, y+1)					   
 			   );				   
 		   }			   
 		}}//for	
 	}	
 	
-	private void colorAdjacents(ArrayList<Integer> a,ArrayList<Integer> b){
+	private void colorAdjacents(List<Integer> a,List<Integer> b){
 		for(int x : a){  for(int y : b){			
 			if(x == a.get(1) && y == b.get(1))
 				continue;			
@@ -100,7 +100,7 @@ public class SpaceGrid implements Grid{
 	}
 
 	@Override
-	public void drawPath(ArrayList<PathNode> path) {
+	public void drawPath(List<PathNode> path) {
 		for(PathNode n : path){
 			makePath(n.getX(), n.getY());
 		}		

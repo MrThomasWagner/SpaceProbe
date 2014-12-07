@@ -1,6 +1,6 @@
 package com.spaceprobe.controller;
  
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class SpaceProbeGridController {
 		Grid newGrid = grid.getCopy();
 		
 		//for now going from top-left of the grid to the bottom right
-		ArrayList<PathNode> path = pathFinder.getPath(grid, 0, 0, grid.getSize()-1, grid.getSize()-1);
+		List<PathNode> path = pathFinder.getPath(grid, 0, 0, grid.getSize()-1, grid.getSize()-1);
 		
 		if(path != null)
 			newGrid.drawPath(path);

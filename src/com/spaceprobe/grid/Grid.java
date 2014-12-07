@@ -1,6 +1,6 @@
 package com.spaceprobe.grid;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.spaceprobe.grid.path.PathNode;
 
@@ -10,5 +10,5 @@ public interface Grid {
 	public int getSize();
 	public Grid getCopy();
 	public void makePath(int x, int y);
-	public void drawPath(ArrayList<PathNode> path);
+	public void drawPath(List<PathNode> path);
 }
