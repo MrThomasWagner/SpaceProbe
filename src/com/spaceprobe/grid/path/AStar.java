@@ -30,7 +30,7 @@ public class AStar implements PathFinder{
 		boolean found = false;
 		
 		//A*
-		while(open.size() > 0 && !found){
+		while(open.size() > 0){
 			
 			PathNode nextNode = open.remove();
 			List<PathNode> successors = generateSuccessors(nextNode, grid);
