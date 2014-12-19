@@ -39,8 +39,10 @@ public class AStar implements PathFinder{
 				if(successor.hasSameCoordinates(goal)){
 					found = true;
 					return getPathCoordinates(successor);
-				}				
-				successor.setFValue(nextNode.getFValue() + euclideanQuick(nextNode, successor) + euclideanQuick(successor, goal));
+				}
+				
+				successor.setDistSoFar(nextNode.getDistSoFar() + euclideanQuick(nextNode, successor));
+				successor.setEstimatedRemainingDist(euclideanQuick(nextNode, successor) + euclideanQuick(successor, goal));
 				
 				List<Integer> xy = Arrays.asList(successor.getX(), successor.getY());
 				if (bestValsSoFar.get(xy) == null || bestValsSoFar.get(xy) > successor.getFValue()){
@@ -90,6 +92,6 @@ public class AStar implements PathFinder{
 	}
 	
 	private double euclideanQuick(PathNode a, PathNode b){ //no sqrt
-		return Math.pow((b.getX() - a.getX()), 2) + Math.pow((b.getY() - a.getY()), 2);
+		return Math.sqrt(Math.pow((b.getX() - a.getX()), 2) + Math.pow((b.getY() - a.getY()), 2));
 	}
 }

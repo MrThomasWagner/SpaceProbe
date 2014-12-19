@@ -5,6 +5,8 @@ public class PathNode{
 	private int y;
 	private PathNode parent;
 	private double fValue =0;
+	private double distSoFar = 0;
+	private double estimatedRemainingDist = 0;
 	
 	public PathNode(int x, int y, PathNode parent){
 		this.x = x;
@@ -20,6 +22,8 @@ public class PathNode{
 	public int getY(){return y;}		
 	public PathNode getParent(){return parent;}		
 	
-	public void setFValue(double f){this.fValue = f;}		
-	public double getFValue(){return fValue;}
+	public void setDistSoFar(double j){this.distSoFar = j;}
+	public double getDistSoFar(){return this.distSoFar;}
+	public void setEstimatedRemainingDist(double j){this.estimatedRemainingDist = j;}
+	public double getFValue(){return distSoFar + estimatedRemainingDist;}
 }
